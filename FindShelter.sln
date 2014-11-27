@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{0C827F5B-F189-4AA3-BC82-8A30EA8F451D}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindShelter.Web", "FindShelter.Web\FindShelter.Web.csproj", "{00FC60A7-7DBB-4C0D-ACFB-EAD0FF68BBED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindShelter.Web.Test", "FindShelter.Web.Test\FindShelter.Web.Test.csproj", "{C04D1983-2652-44DE-93EA-9E87B5FFF106}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{00FC60A7-7DBB-4C0D-ACFB-EAD0FF68BBED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00FC60A7-7DBB-4C0D-ACFB-EAD0FF68BBED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00FC60A7-7DBB-4C0D-ACFB-EAD0FF68BBED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00FC60A7-7DBB-4C0D-ACFB-EAD0FF68BBED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C04D1983-2652-44DE-93EA-9E87B5FFF106}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C04D1983-2652-44DE-93EA-9E87B5FFF106}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C04D1983-2652-44DE-93EA-9E87B5FFF106}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C04D1983-2652-44DE-93EA-9E87B5FFF106}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
