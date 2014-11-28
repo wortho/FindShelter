@@ -2,7 +2,7 @@
 
 namespace FindShelter.Web.Controllers
 {
-    public class ValuesController : ApiController
+    public class FacilitiesController : ApiController
     {
         public IHttpActionResult GetValues()
         {

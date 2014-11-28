@@ -2,10 +2,10 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Owin.Hosting;
 using Microsoft.Owin.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Owin;
-using FindShelter.Web;
 
 namespace FindShelter.Web.Test
 {
@@ -15,7 +15,7 @@ namespace FindShelter.Web.Test
         [TestMethod]
         public async Task ApiValuesDefaultReturnsString()
         {
-            await RunWithTestServer("/api/Values", HttpStatusCode.OK, async response =>
+            await RunWithTestServer("/api/Facilities", HttpStatusCode.OK, async response =>
             {
                 string actual = await response.Content.ReadAsStringAsync();
                 Assert.AreEqual("[\"a\",\"b\",\"c\"]", actual);
@@ -23,10 +23,15 @@ namespace FindShelter.Web.Test
         }
 
         private static async Task RunWithTestServer(string route, HttpStatusCode expectedStatusCode, Func<HttpResponseMessage, Task> validateResponse = null)
-        {
-            using (var server = TestServer.Create<Startup>())
+        {       
+            using (var server = TestServer.Create(builder =>
             {
-                HttpResponseMessage response = await server.HttpClient.GetAsync(route);
+                var startup = new Startup();    
+                builder.Properties.Add("Test",true);
+                startup.Configuration(builder);
+            }))
+            {
+                var response = await server.HttpClient.GetAsync(route);
                 Assert.IsNotNull(response);
                 Assert.AreEqual(expectedStatusCode, response.StatusCode);
                 if (validateResponse != null) await validateResponse(response);
@@ -44,7 +49,7 @@ namespace FindShelter.Web.Test
         {
             using (var server = TestServer.Create(app =>
             {
-                app.UseErrorPage(); // See Microsoft.Owin.Diagnostics
+                app.UseErrorPage(); 
                 app.Run(context => context.Response.WriteAsync("Hello world using OWIN TestServer"));
             }))
             {

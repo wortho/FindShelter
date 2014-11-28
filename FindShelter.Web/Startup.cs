@@ -27,13 +27,17 @@ namespace FindShelter.Web
 
             app.UseWebApi(httpConfiguration);
 
-            // Make ./public the default root of the static files in our Web Application.
-            //app.UseFileServer(new FileServerOptions
-            //{
-            //    RequestPath = new PathString(string.Empty),
-            //    FileSystem = new PhysicalFileSystem("./public"),
-            //    EnableDirectoryBrowsing = true,
-            //});
+            if (!app.Properties.ContainsKey("Test"))
+            {
+                // Make ./public the default root of the static files in our Web Application.
+                const string root = "./public";
+                app.UseFileServer(new FileServerOptions
+                {
+                    RequestPath = new PathString(string.Empty),
+                    FileSystem = new PhysicalFileSystem(root),
+                    EnableDirectoryBrowsing = true,
+                });
+            }
 
             app.UseStageMarker(PipelineStage.MapHandler);
         }
