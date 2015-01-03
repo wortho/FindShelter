@@ -1,0 +1,5 @@
+﻿<h2 id="title">Facilities</h2>
+<ul>
+    <li ng-repeat="facility in facilities | orderBy:'name'"><a href="#/facilities/{{ facility.id }}">{{ facility.name }}</a></li>
+</ul>
+

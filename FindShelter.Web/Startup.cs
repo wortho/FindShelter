@@ -25,12 +25,18 @@ namespace FindShelter.Web
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            httpConfiguration.Routes.MapHttpRoute( 
+ 				name: "Html", 
+ 				routeTemplate: "view*", 
+ 				defaults: new {view = "index.html", controller = "default"} 
+ 				); 
+
             app.UseWebApi(httpConfiguration);
 
             if (!app.Properties.ContainsKey("Test"))
             {
                 // Make ./public the default root of the static files in our Web Application.
-                const string root = "./public";
+                const string root = ".";
                 app.UseFileServer(new FileServerOptions
                 {
                     RequestPath = new PathString(string.Empty),
