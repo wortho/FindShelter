@@ -15,15 +15,7 @@ namespace FindShelter.Web
         {
             var httpConfiguration = new HttpConfiguration();
 
-            // Configure Web API Routes:
-            // - Enable Attribute Mapping
-            // - Enable Default routes at /api.
-            httpConfiguration.MapHttpAttributeRoutes();
-            httpConfiguration.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+            WebApiConfig.Register(httpConfiguration);
 
             httpConfiguration.Routes.MapHttpRoute( 
  				name: "Html", 

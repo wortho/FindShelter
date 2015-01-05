@@ -13,12 +13,22 @@ namespace FindShelter.Web.Test
     public class WebAppTest
     {
         [TestMethod]
-        public async Task ApiValuesDefaultReturnsString()
+        public async Task ApiFacilitiesReturnsString()
         {
             await RunWithTestServer("/api/Facilities", HttpStatusCode.OK, async response =>
             {
                 string actual = await response.Content.ReadAsStringAsync();
-                Assert.AreEqual("[\"a\",\"b\",\"c\"]", actual);
+                Assert.IsNotNull(actual);
+            });
+        }
+
+        [TestMethod]
+        public async Task ApiFacilitiesWithIdReturnsString()
+        {
+            await RunWithTestServer("/api/Facilities/1", HttpStatusCode.OK, async response =>
+            {
+                string actual = await response.Content.ReadAsStringAsync();
+                Assert.IsNotNull(actual);
             });
         }
 

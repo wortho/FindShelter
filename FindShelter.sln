@@ -12,6 +12,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindShelter.Web", "FindShel
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindShelter.Web.Test", "FindShelter.Web.Test\FindShelter.Web.Test.csproj", "{C04D1983-2652-44DE-93EA-9E87B5FFF106}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindShelter.Model", "FindShelter.Model\FindShelter.Model.csproj", "{974BC2B3-5CDC-461D-94E7-A2B9D30F46B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindShelter.GeoConverter", "FindShelter.GeoConverter\FindShelter.GeoConverter.csproj", "{03CFB532-A827-40EF-99E6-C0ED1AFC8DC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindShelter.GeoConverter.UnitTests", "FindShelter.GeoConverter.UnitTests\FindShelter.GeoConverter.UnitTests.csproj", "{D35C274D-771E-49F9-8C8E-D3E956B780E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +32,18 @@ Global
 		{C04D1983-2652-44DE-93EA-9E87B5FFF106}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C04D1983-2652-44DE-93EA-9E87B5FFF106}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C04D1983-2652-44DE-93EA-9E87B5FFF106}.Release|Any CPU.Build.0 = Release|Any CPU
+		{974BC2B3-5CDC-461D-94E7-A2B9D30F46B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{974BC2B3-5CDC-461D-94E7-A2B9D30F46B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{974BC2B3-5CDC-461D-94E7-A2B9D30F46B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{974BC2B3-5CDC-461D-94E7-A2B9D30F46B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03CFB532-A827-40EF-99E6-C0ED1AFC8DC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03CFB532-A827-40EF-99E6-C0ED1AFC8DC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03CFB532-A827-40EF-99E6-C0ED1AFC8DC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03CFB532-A827-40EF-99E6-C0ED1AFC8DC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D35C274D-771E-49F9-8C8E-D3E956B780E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D35C274D-771E-49F9-8C8E-D3E956B780E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D35C274D-771E-49F9-8C8E-D3E956B780E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D35C274D-771E-49F9-8C8E-D3E956B780E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
