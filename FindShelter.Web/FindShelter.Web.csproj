@@ -126,17 +126,21 @@
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config" />
     <Content Include="index.html" />
+    <Content Include="scripts\angular-mocks.js" />
     <Content Include="scripts\angular-route.js" />
     <Content Include="scripts\angular-route.min.js" />
+    <Content Include="scripts\angular-route.min.js.map" />
+    <Content Include="scripts\angular-sanitize.js" />
+    <Content Include="scripts\angular-sanitize.min.js" />
     <Content Include="scripts\angular.js" />
     <Content Include="scripts\angular.min.js" />
-    <Content Include="scripts\angular.min.js.map" />
-    <Content Include="scripts\angular-route.min.js.map" />
     <Content Include="scripts\jasmine\boot.js" />
     <Content Include="scripts\jasmine\console.js" />
     <Content Include="scripts\jasmine\jasmine-html.js" />
     <Content Include="scripts\jasmine\jasmine.js" />
     <Content Include="views\Jasmine\SpecRunner.html" />
+    <Content Include="scripts\angular.min.js.map" />
+    <Content Include="scripts\angular-sanitize.min.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -145,7 +149,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="scripts\angular-mocks.js" />
     <Content Include="views\FacilityDetail.html" />
     <Content Include="views\FacilityList.html" />
     <Content Include="Web.config">
@@ -170,6 +173,10 @@
     <ProjectReference Include="..\FindShelter.Model\FindShelter.Model.csproj">
       <Project>{974bc2b3-5cdc-461d-94e7-a2b9d30f46b4}</Project>
       <Name>FindShelter.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FindShelter.UdINaturenService\FindShelter.UdINaturenService.csproj">
+      <Project>{7a19e47f-608a-4dac-9a72-4498c928f0d6}</Project>
+      <Name>FindShelter.UdINaturenService</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

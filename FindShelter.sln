@@ -18,6 +18,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindShelter.GeoConverter", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindShelter.GeoConverter.UnitTests", "FindShelter.GeoConverter.UnitTests\FindShelter.GeoConverter.UnitTests.csproj", "{D35C274D-771E-49F9-8C8E-D3E956B780E4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindShelter.UdINaturenService", "FindShelter.UdINaturenService\FindShelter.UdINaturenService.csproj", "{7A19E47F-608A-4DAC-9A72-4498C928F0D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindShelter.UdINaturenService.Tests", "FindShelter.UdINaturenService.Tests\FindShelter.UdINaturenService.Tests.csproj", "{60709395-3C0A-434F-8FB8-5ABB6CA3ACCE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +48,14 @@ Global
 		{D35C274D-771E-49F9-8C8E-D3E956B780E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D35C274D-771E-49F9-8C8E-D3E956B780E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D35C274D-771E-49F9-8C8E-D3E956B780E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A19E47F-608A-4DAC-9A72-4498C928F0D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A19E47F-608A-4DAC-9A72-4498C928F0D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A19E47F-608A-4DAC-9A72-4498C928F0D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A19E47F-608A-4DAC-9A72-4498C928F0D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60709395-3C0A-434F-8FB8-5ABB6CA3ACCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60709395-3C0A-434F-8FB8-5ABB6CA3ACCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60709395-3C0A-434F-8FB8-5ABB6CA3ACCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60709395-3C0A-434F-8FB8-5ABB6CA3ACCE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

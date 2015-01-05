@@ -9,6 +9,18 @@ namespace FindShelter.Web.Controllers
 
     public class FacilitiesController : ApiController
     {
+        private IFacilityService FacilityService;
+
+        public FacilitiesController()
+        {
+            FacilityService = new FindShelter.UdINaturenService.FacilityService();
+        }
+
+        public FacilitiesController(IFacilityService service)
+        {
+            FacilityService = service;
+        }
+       
         // GET: api/Facilities
         public async Task<IHttpActionResult> GetFacilities()
         {
@@ -27,14 +39,9 @@ namespace FindShelter.Web.Controllers
             }
         }
 
-        private async Task<Facility[]> FindFacilities()
+        private async Task<IEnumerable<Facility>> FindFacilities()
         {
-            var facilities = new[] { 
-                new Facility(1, "Name1", "Description1", new GeoCoordinate(1, 0)) ,
-                new Facility(2, "Name2", "Description2", new GeoCoordinate(2, 0)) ,
-                new Facility(3, "Name3", "Description3", new GeoCoordinate(2, 0))
-            };
-            await Task.Delay(100);
+            var facilities = await FacilityService.GetFacilities();
             return facilities;
         }
 
@@ -49,8 +56,7 @@ namespace FindShelter.Web.Controllers
         }
         private async Task<Facility> FindFacility(int id)
         {
-            var facility = new Facility(id, "Name", "Description", new GeoCoordinate(0, 0));
-            await Task.Delay(100);
+            var facility = await FacilityService.GetFacility(id);
             return facility;
         }
     }

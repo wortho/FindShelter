@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Linq;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FindShelter.Web.Controllers;
@@ -7,6 +8,7 @@ using FindShelter.Model;
 using System.Web.Http;
 using System.Threading.Tasks;
 using System.Web.Http.Results;
+using Moq;
 
 namespace FindShelter.Web.Test
 {
@@ -26,37 +28,40 @@ namespace FindShelter.Web.Test
         [TestMethod]
         public void CreateFacilitiesController()
         {
-            var sut = new FacilitiesController();
+            var serviceMock = new Mock<IFacilityService>();
+            var sut = new FacilitiesController(serviceMock.Object);
             Assert.IsNotNull(sut);
         }
 
         [TestMethod]
         public async Task GetFacilityReturnsActionResult()
         {
-            var sut = new FacilitiesController();
+            var serviceMock = new Mock<IFacilityService>();
+            var sut = new FacilitiesController(serviceMock.Object);
             IHttpActionResult contentResult = await sut.GetFacility(0);
             Assert.IsNotNull(contentResult);
         }
 
         [TestMethod]
-        public async Task GetFacilityReturnsEnumerableFacilites()
+        public async Task GetFacility()
         {
-            var sut = new FacilitiesController();
-
-            IHttpActionResult actionResult = await sut.GetFacility(0);
-
+            var serviceMock = new Mock<IFacilityService>();
+            var sut = new FacilitiesController(serviceMock.Object);
+            var expected = new Facility(1, "Name1", "ShortDescription1", "LongDescription1", new GeoCoordinate(1, 0));
+            serviceMock.Setup(s => s.GetFacility(1)).ReturnsAsync(expected);
+            IHttpActionResult actionResult = await sut.GetFacility(1);
             var contentResult = actionResult as OkNegotiatedContentResult<Facility>;
             Assert.IsNotNull(contentResult);
-
-            var facilites = contentResult.Content;
-
-            Assert.IsTrue(facilites is Facility);
+            var actual = contentResult.Content;
+            Assert.IsTrue(actual is Facility);
+            Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
         public async Task GetFacilitiesReturnsActionResult()
         {
-            var sut = new FacilitiesController();
+            var serviceMock = new Mock<IFacilityService>();
+            var sut = new FacilitiesController(serviceMock.Object);
             IHttpActionResult contentResult = await sut.GetFacilities();
             Assert.IsNotNull(contentResult);
         }
@@ -64,16 +69,22 @@ namespace FindShelter.Web.Test
         [TestMethod]
         public async Task GetFacilitiesReturnsEnumerableFacilites()
         {
-            var sut = new FacilitiesController();
+            var serviceMock = new Mock<IFacilityService>();
+            var sut = new FacilitiesController(serviceMock.Object);
+            var facilities = new[] { 
+                new Facility(1, "Name1", "ShortDescription1","LongDescription1", new GeoCoordinate(1, 0)),
+                new Facility(2, "Name2", "ShortDescription2","LongDescription2", new GeoCoordinate(2, 0)),
+                new Facility(3, "Name3", "ShortDescription3","LongDescription3", new GeoCoordinate(2, 0))
+            };
+            serviceMock.Setup(s => s.GetFacilities()).ReturnsAsync(facilities);
 
             IHttpActionResult actionResult = await sut.GetFacilities();
-            
+
             var contentResult = actionResult as OkNegotiatedContentResult<IEnumerable<Facility>>;
             Assert.IsNotNull(contentResult);
-
-            var facilites = contentResult.Content;
-
-            Assert.IsTrue(facilites is IEnumerable<Facility>);
+            var actual = contentResult.Content;
+            Assert.IsTrue(actual is IEnumerable<Facility>);
+            Assert.AreEqual(facilities[0], actual.First());
         }
     }
 }

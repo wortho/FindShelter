@@ -1,4 +1,4 @@
-﻿var findShelterApp = angular.module('findShelterApp', ['ngRoute']);
+﻿var findShelterApp = angular.module('findShelterApp', ['ngRoute', 'ngSanitize']);
 
 findShelterApp.config(function ($routeProvider) {
     $routeProvider
@@ -16,18 +16,19 @@ findShelterApp.config(function ($routeProvider) {
 });
 
 findShelterApp.controller('facilityListController',
-    ['$scope', '$http',
-    function ($scope, $http) {
+    ['$scope', '$http', '$sce',
+    function ($scope, $http, $sce) {
         $http.get('api/facilities').success(function (data) {
             $scope.facilities = data;
         });
     }]);
 
-findShelterApp.controller('facilityDetailController', 
-    ['$scope', '$routeParams', '$http',
-    function ($scope, $routeParams, $http) {
+findShelterApp.controller('facilityDetailController',
+    ['$scope', '$routeParams', '$http', '$sce',
+    function ($scope, $routeParams, $http, $sce) {
         $scope.facilityId = $routeParams.facilityId;
-        $http.get('api/facilities/'+$scope.facilityId).success(function (data) {
+        $http.get('api/facilities/' + $scope.facilityId).success(function (data) {
             $scope.facility = data;
         });
-}]);
+
+    }]);

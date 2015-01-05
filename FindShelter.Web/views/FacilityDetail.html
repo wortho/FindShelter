@@ -1,4 +1,8 @@
 ﻿<h2 id="title">Facility Detail</h2>
-<span>{{ facility.id }} - {{ facility.name }}</span>
+<span>{{ facility.id }}</span><br />
+<span>{{ facility.name }}</span><br />
+<span>{{ facility.shortDescription }}</span><br />
+<span>{{ facility.location }}</span><br />
+<div ng-bind-html="facility.longDescription"></div>
 <br />
 <a href="#/facilities">Facilities</a>

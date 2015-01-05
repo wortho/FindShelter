@@ -1,6 +1,7 @@
 ﻿///<reference path="~/Scripts/jasmine/jasmine.js"/>
 ///<reference path="~/Scripts/angular.js"/>
 ///<reference path="~/Scripts/angular-route.js"/>
+///<reference path="~/Scripts/angular-sanitize.js"/>
 ///<reference path="~/Scripts/angular-mocks.js"/>
 ///<reference path="~/App/app.js"/>
 
@@ -8,10 +9,10 @@ describe("facilityListControllerSpec", function () {
 
     beforeEach(module("findShelterApp"));
 
-    beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
+    beforeEach(inject(function (_$httpBackend_, $rootScope, $sce, $controller) {
         $httpBackend = _$httpBackend_;
         $httpBackend.expectGET('api/facilities').
-            respond([{ id: 1, name: 'Shelter1' }, { id: 2, name: 'Shelter2' }]);
+            respond([{ id: 1, name: 'Shelter1' }, { id: 2, name: 'Shelter2'}]);
         scope = $rootScope.$new();
         ctrl = $controller('facilityListController', { $scope: scope });
     }));
@@ -42,16 +43,16 @@ describe("facilityDetailControllerSpec", function () {
 
     beforeEach(module("findShelterApp"));
 
-    beforeEach(inject(function (_$httpBackend_, $rootScope, $routeParams, $controller) {
+    beforeEach(inject(function (_$httpBackend_, $rootScope, $routeParams, $sce, $controller) {
         $httpBackend = _$httpBackend_;
         $httpBackend.expectGET('api/facilities/1').
-            respond({ id: 1, name: 'Shelter1' });
+            respond({ id: 1, name: 'Shelter1', longDescription: 'description' });
         $routeParams.facilityId = 1;
         scope = $rootScope.$new();
         ctrl = $controller('facilityDetailController', { $scope: scope });
     }));
     
-    it('should create one "facility" with the specified id and name', inject(function ($rootScope, $routeParams, $controller) {
+    it('should create one "facility" with the specified id and name', inject(function ($rootScope, $routeParams, $sce, $controller) {
         expect(scope.facility).toBeUndefined();
         $httpBackend.flush();
         expect(scope.facilityId).toBe(1);
