@@ -18,7 +18,7 @@ findShelterApp.config(function ($routeProvider) {
 findShelterApp.controller('facilityListController',
     ['$scope', '$http', '$sce',
     function ($scope, $http, $sce) {
-        $http.get('api/facilities').success(function (data) {
+        $http.get('api/facilities?latitudeSW=55&longitudeSW=12&latitudeNE=56&longitudeNE=13').success(function (data) {
             $scope.facilities = data;
         });
     }]);

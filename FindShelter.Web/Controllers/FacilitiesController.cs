@@ -21,11 +21,12 @@ namespace FindShelter.Web.Controllers
             FacilityService = service;
         }
        
-        // GET: api/Facilities
-        public async Task<IHttpActionResult> GetFacilities()
+        // GET: api/Facilities?box=
+        public async Task<IHttpActionResult> GetFacilities(double latitudeSW, double longitudeSW, double latitudeNE, double longitudeNE)
         {
+            var box = new BoundingBox(new GeoCoordinate(latitudeSW, longitudeSW), new GeoCoordinate(latitudeNE, longitudeNE));
             SetNoCacheHeader();
-            var facilities = await FindFacilities();
+            var facilities = await FindFacilities(box);
 
             return Ok<IEnumerable<Facility>>(facilities);
         }
@@ -39,9 +40,9 @@ namespace FindShelter.Web.Controllers
             }
         }
 
-        private async Task<IEnumerable<Facility>> FindFacilities()
-        {
-            var facilities = await FacilityService.GetFacilities();
+        private async Task<IEnumerable<Facility>> FindFacilities(BoundingBox box)
+        {            
+            var facilities = await FacilityService.GetFacilities(box);
             return facilities;
         }
 

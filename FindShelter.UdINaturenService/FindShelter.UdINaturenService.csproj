@@ -59,6 +59,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FindShelter.GeoConverter\FindShelter.GeoConverter.csproj">
+      <Project>{03cfb532-a827-40ef-99e6-c0ed1afc8dc7}</Project>
+      <Name>FindShelter.GeoConverter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FindShelter.Model\FindShelter.Model.csproj">
       <Project>{974bc2b3-5cdc-461d-94e7-a2b9d30f46b4}</Project>
       <Name>FindShelter.Model</Name>

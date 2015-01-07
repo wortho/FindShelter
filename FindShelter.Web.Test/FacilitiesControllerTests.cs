@@ -62,23 +62,27 @@ namespace FindShelter.Web.Test
         {
             var serviceMock = new Mock<IFacilityService>();
             var sut = new FacilitiesController(serviceMock.Object);
-            IHttpActionResult contentResult = await sut.GetFacilities();
+            IHttpActionResult contentResult = await sut.GetFacilities(0, 0, 1, 1);
+            var box = new BoundingBox(new GeoCoordinate(0, 0), new GeoCoordinate(1, 1));
             Assert.IsNotNull(contentResult);
+            serviceMock.Verify(s => s.GetFacilities(It.IsAny<BoundingBox>()), Times.Once);
         }
 
         [TestMethod]
         public async Task GetFacilitiesReturnsEnumerableFacilites()
         {
             var serviceMock = new Mock<IFacilityService>();
+            var box = new BoundingBox(new GeoCoordinate(0, 0), new GeoCoordinate(1, 1));
             var sut = new FacilitiesController(serviceMock.Object);
             var facilities = new[] { 
                 new Facility(1, "Name1", "ShortDescription1","LongDescription1", new GeoCoordinate(1, 0)),
                 new Facility(2, "Name2", "ShortDescription2","LongDescription2", new GeoCoordinate(2, 0)),
                 new Facility(3, "Name3", "ShortDescription3","LongDescription3", new GeoCoordinate(2, 0))
             };
-            serviceMock.Setup(s => s.GetFacilities()).ReturnsAsync(facilities);
 
-            IHttpActionResult actionResult = await sut.GetFacilities();
+            serviceMock.Setup(s => s.GetFacilities(It.IsAny<BoundingBox>())).ReturnsAsync(facilities);
+
+            IHttpActionResult actionResult = await sut.GetFacilities(0, 0, 1, 1);
 
             var contentResult = actionResult as OkNegotiatedContentResult<IEnumerable<Facility>>;
             Assert.IsNotNull(contentResult);

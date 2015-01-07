@@ -8,7 +8,7 @@ namespace FindShelter.Model
 {
     public interface IFacilityService
     {
-        Task<IEnumerable<Facility>> GetFacilities();
+        Task<IEnumerable<Facility>> GetFacilities(BoundingBox box);
 
         Task<Facility> GetFacility(int id);
     }

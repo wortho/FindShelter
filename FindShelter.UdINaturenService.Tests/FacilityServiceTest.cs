@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
+using FindShelter.Model;
 
 namespace FindShelter.UdINaturenService.Tests
 {
@@ -19,7 +20,9 @@ namespace FindShelter.UdINaturenService.Tests
         {
             var sut = new FacilityService();
 
-            var facilities = await sut.GetFacilities();
+            var box = new BoundingBox(new GeoCoordinate(55.0, 12.0), new GeoCoordinate(56.0, 13.0));
+
+            var facilities = await sut.GetFacilities(box);
 
             Assert.IsNotNull(facilities);
         }
@@ -28,7 +31,8 @@ namespace FindShelter.UdINaturenService.Tests
         public async Task GetFacility()
         {
             var sut = new FacilityService();
-            var facilities = await sut.GetFacilities();
+            var box = new BoundingBox(new GeoCoordinate(55.0, 12.0), new GeoCoordinate(56.0, 13.0));
+            var facilities = await sut.GetFacilities(box);
             Assert.IsNotNull(facilities);
             Assert.IsTrue(facilities.Count() > 0);
             var expected = facilities.First();

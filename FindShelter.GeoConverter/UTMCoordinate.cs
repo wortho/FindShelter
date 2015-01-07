@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FindShelter.Model
+namespace FindShelter.GeoConverter
 {
     public class UTMCoordinate
     {
@@ -19,5 +19,7 @@ namespace FindShelter.Model
             Zone = zone;
             Band = band;
         }
+
+
     }
 }

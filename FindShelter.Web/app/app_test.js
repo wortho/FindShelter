@@ -11,7 +11,7 @@ describe("facilityListControllerSpec", function () {
 
     beforeEach(inject(function (_$httpBackend_, $rootScope, $sce, $controller) {
         $httpBackend = _$httpBackend_;
-        $httpBackend.expectGET('api/facilities').
+        $httpBackend.expectGET('api/facilities?latitudeSW=55&longitudeSW=12&latitudeNE=56&longitudeNE=13').
             respond([{ id: 1, name: 'Shelter1' }, { id: 2, name: 'Shelter2'}]);
         scope = $rootScope.$new();
         ctrl = $controller('facilityListController', { $scope: scope });

@@ -15,7 +15,7 @@ namespace FindShelter.Web.Test
         [TestMethod]
         public async Task ApiFacilitiesReturnsString()
         {
-            await RunWithTestServer("/api/Facilities", HttpStatusCode.OK, async response =>
+            await RunWithTestServer("/api/Facilities?latitudeSW=55&longitudeSW=12&latitudeNE=56&longitudeNE=13", HttpStatusCode.OK, async response =>
             {
                 string actual = await response.Content.ReadAsStringAsync();
                 Assert.IsNotNull(actual);
@@ -25,7 +25,7 @@ namespace FindShelter.Web.Test
         [TestMethod]
         public async Task ApiFacilitiesWithIdReturnsString()
         {
-            await RunWithTestServer("/api/Facilities/1", HttpStatusCode.OK, async response =>
+            await RunWithTestServer("/api/Facilities/5216", HttpStatusCode.OK, async response =>
             {
                 string actual = await response.Content.ReadAsStringAsync();
                 Assert.IsNotNull(actual);

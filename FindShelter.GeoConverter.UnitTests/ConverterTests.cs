@@ -77,5 +77,23 @@ namespace FindShelter.GeoConverter.UnitTests
         {
             UTMCoordinate resultUtm = Converter.ConvertWGS84ToUtm(new GeoCoordinate(2000, 120));
         }
+
+        [TestMethod]
+        public void CreateUTMFromWKTPoint()
+        {
+            UTMCoordinate resultUtm = Converter.ConvertWKTToUtm("POINT(666201 6196948)");
+            Assert.IsNotNull(resultUtm);
+            Assert.AreEqual(666201, resultUtm.Easting);
+            Assert.AreEqual(6196948, resultUtm.Northing);
+        }
+
+        [TestMethod]
+        public void CreateInvalidWKTPoint()
+        {
+            UTMCoordinate resultUtm = Converter.ConvertWKTToUtm("POINT(x x)");
+            Assert.IsNotNull(resultUtm);
+            Assert.AreEqual(0, resultUtm.Easting);
+            Assert.AreEqual(0, resultUtm.Northing);
+        }
     }
 }

@@ -39,10 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BoundingBox.cs" />
     <Compile Include="Facility.cs" />
     <Compile Include="GeoCoordinate.cs" />
     <Compile Include="IFacilityService.cs" />
-    <Compile Include="UTMCoordinate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

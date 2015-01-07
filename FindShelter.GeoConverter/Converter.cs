@@ -99,5 +99,20 @@ namespace FindShelter.GeoConverter
         {
             return (band.CompareTo('M') > 0);
         }
+
+        public static UTMCoordinate ConvertWKTToUtm(string wktPoint)
+        {
+            int[] points = new int[2] { 0, 0 };
+            if (wktPoint.Contains("POINT"))
+            {
+                string[] delimeters = new string[] { "POINT(", ")", " " };
+                string[] strings = wktPoint.Split(delimeters, StringSplitOptions.RemoveEmptyEntries);
+                for (int i = 0; i < strings.Count(); i++)
+                {
+                    int.TryParse(strings[i], out points[i]);
+                }
+            }
+            return new UTMCoordinate(32, 'U', points[0], points[1]);
+        }
     }
 }
