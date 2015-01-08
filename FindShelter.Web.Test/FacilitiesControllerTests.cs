@@ -12,83 +12,123 @@ using Moq;
 
 namespace FindShelter.Web.Test
 {
-    /// <summary>
-    /// Summary description for FacilitiesControllerTests
-    /// </summary>
     [TestClass]
     public class FacilitiesControllerTests
     {
-
-        /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
-        ///</summary>
         public TestContext TestContext { get; set; }
 
         [TestMethod]
-        public void CreateFacilitiesController()
+        public void FacilitiesControllerHasFacilityService()
         {
-            var serviceMock = new Mock<IFacilityService>();
-            var sut = new FacilitiesController(serviceMock.Object);
-            Assert.IsNotNull(sut);
+            using (var fixture = new FacilitiesControllerFixture())
+            {
+                var sut = fixture.CreateSUT();
+                Assert.IsNotNull(sut.FacilityService);
+            }
         }
 
         [TestMethod]
         public async Task GetFacilityReturnsActionResult()
         {
-            var serviceMock = new Mock<IFacilityService>();
-            var sut = new FacilitiesController(serviceMock.Object);
-            IHttpActionResult contentResult = await sut.GetFacility(0);
-            Assert.IsNotNull(contentResult);
+            using (var fixture = new FacilitiesControllerFixture())
+            {
+                var sut = fixture.CreateSUT();
+                IHttpActionResult contentResult = await sut.GetFacility(0);
+                Assert.IsNotNull(contentResult);
+                fixture.FacilityService.AsMock().Verify(s => s.GetFacility(0), Times.Once);
+            }
         }
 
         [TestMethod]
-        public async Task GetFacility()
+        public async Task GetFacilityReturnsNotFoundWithInvalidId()
         {
-            var serviceMock = new Mock<IFacilityService>();
-            var sut = new FacilitiesController(serviceMock.Object);
-            var expected = new Facility(1, "Name1", "ShortDescription1", "LongDescription1", new GeoCoordinate(1, 0));
-            serviceMock.Setup(s => s.GetFacility(1)).ReturnsAsync(expected);
-            IHttpActionResult actionResult = await sut.GetFacility(1);
-            var contentResult = actionResult as OkNegotiatedContentResult<Facility>;
-            Assert.IsNotNull(contentResult);
-            var actual = contentResult.Content;
-            Assert.IsTrue(actual is Facility);
-            Assert.AreEqual(expected, actual);
+            using (var fixture = new FacilitiesControllerFixture())
+            {
+                var sut = fixture.CreateSUT();
+                fixture.FacilityService.AsMock().Setup(s => s.GetFacility(-1)).ReturnsAsync(null);
+                IHttpActionResult actionResult = await sut.GetFacility(-1);
+                Assert.IsInstanceOfType(actionResult, typeof(NotFoundResult));
+            }
+        }
+
+        [TestMethod]
+        public async Task GetFacilityReturnsFaciltyWithId()
+        {
+            using (var fixture = new FacilitiesControllerFixture())
+            {
+                var sut = fixture.CreateSUT();
+                Facility expected = fixture.FacilityBuilder.WithId(1);
+                fixture.FacilityService.AsMock().Setup(s => s.GetFacility(1)).ReturnsAsync(expected);
+                IHttpActionResult actionResult = await sut.GetFacility(1);
+                fixture.FacilityService.AsMock().Verify(s => s.GetFacility(1), Times.Once);
+                var contentResult = actionResult as OkNegotiatedContentResult<Facility>;
+                Assert.IsNotNull(contentResult);
+                var actual = contentResult.Content;
+                Assert.IsTrue(actual is Facility);
+                Assert.AreEqual(expected, actual);
+            }
+        }
+
+        [TestMethod]
+        public async Task GetFacilitiesWithInvalidLocationReturnsBadRequest()
+        {
+            using (var fixture = new FacilitiesControllerFixture())
+            {
+                var sut = fixture.CreateSUT();
+                IHttpActionResult actionResult = await sut.GetFacilities(95, 190, -1, -1);
+                Assert.IsInstanceOfType(actionResult, typeof(BadRequestResult));
+                fixture.FacilityService.AsMock().Verify(s => s.GetFacilities(It.IsAny<BoundingBox>()), Times.Never);
+            }
         }
 
         [TestMethod]
         public async Task GetFacilitiesReturnsActionResult()
         {
-            var serviceMock = new Mock<IFacilityService>();
-            var sut = new FacilitiesController(serviceMock.Object);
-            IHttpActionResult contentResult = await sut.GetFacilities(0, 0, 1, 1);
-            var box = new BoundingBox(new GeoCoordinate(0, 0), new GeoCoordinate(1, 1));
-            Assert.IsNotNull(contentResult);
-            serviceMock.Verify(s => s.GetFacilities(It.IsAny<BoundingBox>()), Times.Once);
+            using (var fixture = new FacilitiesControllerFixture())
+            {
+                var sut = fixture.CreateSUT();
+                IHttpActionResult actionResult = await sut.GetFacilities(0, 0, 1, 1);
+                var box = new BoundingBox(new GeoCoordinate(0, 0), new GeoCoordinate(1, 1));
+                Assert.IsNotNull(actionResult);
+                fixture.FacilityService.AsMock().Verify(s => s.GetFacilities(It.IsAny<BoundingBox>()), Times.Once);
+            }
         }
 
         [TestMethod]
-        public async Task GetFacilitiesReturnsEnumerableFacilites()
+        public async Task GetFacilitiesReturnsNotFoundWithNoMatchingFacilites()
         {
-            var serviceMock = new Mock<IFacilityService>();
-            var box = new BoundingBox(new GeoCoordinate(0, 0), new GeoCoordinate(1, 1));
-            var sut = new FacilitiesController(serviceMock.Object);
-            var facilities = new[] { 
-                new Facility(1, "Name1", "ShortDescription1","LongDescription1", new GeoCoordinate(1, 0)),
-                new Facility(2, "Name2", "ShortDescription2","LongDescription2", new GeoCoordinate(2, 0)),
-                new Facility(3, "Name3", "ShortDescription3","LongDescription3", new GeoCoordinate(2, 0))
-            };
+            using (var fixture = new FacilitiesControllerFixture())
+            {
+                var sut = fixture.CreateSUT();
+                fixture.FacilityService.AsMock().Setup(s => s.GetFacilities(It.IsAny<BoundingBox>())).ReturnsAsync(null);
+                IHttpActionResult actionResult = await sut.GetFacilities(0, 0, 0, 0);
+                Assert.IsInstanceOfType(actionResult, typeof(NotFoundResult));
+            }
+        }
 
-            serviceMock.Setup(s => s.GetFacilities(It.IsAny<BoundingBox>())).ReturnsAsync(facilities);
+        [TestMethod]
+        public async Task GetFacilitiesReturnsFacilites()
+        {
+            using (var fixture = new FacilitiesControllerFixture())
+            {
+                var sut = fixture.CreateSUT();
+                var expected = new Facility[]
+                { 
+                    fixture.FacilityBuilder.WithId(1),
+                    fixture.FacilityBuilder.WithId(2),
+                    fixture.FacilityBuilder.WithId(3)
+                };
 
-            IHttpActionResult actionResult = await sut.GetFacilities(0, 0, 1, 1);
+                fixture.FacilityService.AsMock().Setup(s => s.GetFacilities(It.IsAny<BoundingBox>())).ReturnsAsync(expected);
 
-            var contentResult = actionResult as OkNegotiatedContentResult<IEnumerable<Facility>>;
-            Assert.IsNotNull(contentResult);
-            var actual = contentResult.Content;
-            Assert.IsTrue(actual is IEnumerable<Facility>);
-            Assert.AreEqual(facilities[0], actual.First());
+                IHttpActionResult actionResult = await sut.GetFacilities(0, 0, 1, 1);
+                var contentResult = actionResult as OkNegotiatedContentResult<IEnumerable<Facility>>;
+                Assert.IsNotNull(contentResult);
+                var actual = contentResult.Content;
+                Assert.IsTrue(actual is IEnumerable<Facility>);
+                Assert.AreEqual(expected.Length, actual.Count());
+                Assert.AreEqual(expected.First(), actual.First());
+            }
         }
     }
 }

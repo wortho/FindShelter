@@ -96,7 +96,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="FacilitiesControllerFixture.cs" />
     <Compile Include="FacilitiesControllerTests.cs" />
+    <Compile Include="FacilityBuilder.cs" />
+    <Compile Include="MockExtensions.cs" />
     <Compile Include="WebAppTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
